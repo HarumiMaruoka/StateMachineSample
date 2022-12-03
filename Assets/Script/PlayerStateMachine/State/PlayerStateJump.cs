@@ -4,22 +4,9 @@ using UnityEngine;
 
 public class PlayerStateJump : PlayerStateBase
 {
-    [SerializeField]
-    private float _jumpPower = 1f;
-
-    private Rigidbody2D _rigidbody2D = null;
-    private GroundedChecker _playerGrounded = null;
-    public void Init(PlayerStateMachine stateMachine, Rigidbody2D rigidbody2D,
-        GroundedChecker playerGrounded)
-    {
-        base.Init(stateMachine);
-        _rigidbody2D = rigidbody2D;
-        _playerGrounded = playerGrounded;
-    }
-
     public override void Enter()
     {
-        _rigidbody2D.velocity = Vector2.up * _jumpPower;
+        _stateMachine.PlayerController.Jump();
     }
 
     public override void Exit()
@@ -29,19 +16,12 @@ public class PlayerStateJump : PlayerStateBase
 
     public override void Update()
     {
-        var h = Input.GetAxisRaw("Horizontal");
-        _rigidbody2D.velocity = new Vector2(h, _rigidbody2D.velocity.y);
-
-        if (_playerGrounded.IsGrounded && _rigidbody2D.velocity.y < 0.1f)
+        if (_stateMachine.PlayerController.GroundedChecker.IsGrounded)
         {
-            if (Mathf.Abs(_rigidbody2D.velocity.x) < 0.1f)
-            {
-                // ステートをMoveに遷移する
-            }
+            if (Mathf.Abs(Input.GetAxisRaw("Horizontal")) > 0.1f)
+                _stateMachine.TransitionTo(_stateMachine.StateMove);
             else
-            {
-                // ステートをIdleに遷移する
-            }
+                _stateMachine.TransitionTo(_stateMachine.StateIdle);
         }
     }
 }

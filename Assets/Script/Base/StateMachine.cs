@@ -15,14 +15,16 @@ public abstract class StateMachine : MonoBehaviour
     public event Action<IState> OnStateChanged = default;
 
     // 最初のステートを設定する。
-    protected void Initialize(IState state)
+    protected void Initialize(IState startState)
     {
-        CurrentState = state;
-        state.Enter();
+        StateInit();
+
+        CurrentState = startState;
+        startState.Enter();
 
         // ステート変化時に実行するアクション。
         // 引数に最初のステートを渡す。
-        OnStateChanged?.Invoke(state);
+        OnStateChanged?.Invoke(startState);
     }
 
     // ステートの遷移処理。引数に「次のステートの参照」を受け取る。
