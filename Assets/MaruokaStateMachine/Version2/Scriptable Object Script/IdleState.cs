@@ -10,11 +10,11 @@ public class IdleState : State
 
     protected override void Exit()
     {
-        // Debug.Log("アイドルおわり");
+        //Debug.Log("アイドルおわり");
     }
 
     protected override void Update()
     {
-        // Debug.Log("アイドルなう");
+        //Debug.Log("アイドルなう");
     }
 }

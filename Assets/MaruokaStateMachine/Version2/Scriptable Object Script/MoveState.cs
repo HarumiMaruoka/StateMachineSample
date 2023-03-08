@@ -10,11 +10,11 @@ public class MoveState : State
 
     protected override void Exit()
     {
-        // Debug.Log("ムーブおわり");
+        //Debug.Log("ムーブおわり");
     }
 
     protected override void Update()
     {
-        // Debug.Log("ムーブなう");
+        //Debug.Log("ムーブなう");
     }
 }

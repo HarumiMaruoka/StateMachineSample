@@ -10,11 +10,11 @@ public class JumpState : State
 
     protected override void Exit()
     {
-        // Debug.Log("‚¶‚á‚ñ‚Õ‚¨‚í‚è");
+        //Debug.Log("‚¶‚á‚ñ‚Õ‚¨‚í‚è");
     }
 
     protected override void Update()
     {
-        // Debug.Log("‚¶‚á‚ñ‚Õ‚È‚¤");
+        //Debug.Log("‚¶‚á‚ñ‚Õ‚È‚¤");
     }
 }

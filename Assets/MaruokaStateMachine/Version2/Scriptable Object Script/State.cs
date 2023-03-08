@@ -24,6 +24,15 @@ public abstract class State : ScriptableObject
     {
         _owner = owner;
         _transitions = sourceObj._transitions;
+    }
+    /// <summary>
+    /// Enter処理の強制実行。
+    /// ステートマシンで,最初のステートを割り当てる時に実行する必要があったが、<br/>
+    /// Enterを直接公開したくなかったので仕方なくこの形にした。
+    /// 何かいい案があったら持ってきてください。
+    /// </summary>
+    public void ExecuteEnter()
+    {
         Enter();
     }
     /// <summary>
@@ -45,20 +54,12 @@ public abstract class State : ScriptableObject
             // ステートマシンの状態を確認し、条件が成立していたら遷移する
             if (_owner.Conditions.HasFlag(_transitions[i].Conditions))
             {
-                try
-                {
-                    // 新しいステートを割り当てる（スクリプタブルオブジェクトの複製）
-                    _owner.CurrentState = (State)ScriptableObject.CreateInstance(_transitions[i].NextState.GetType());
-                }
-                catch (InvalidCastException)
-                {
-                    Debug.LogWarning("キャストに失敗しました。遷移をキャンセルします。");
-                    return;
-                }
                 // 旧ステートのExit処理を実行
-                this.Exit();
-                // 複製された新しいステートに対してセットアップ処理を施す。
-                _owner.CurrentState.Setup(_owner, _transitions[i].NextState);
+                _owner.CurrentState.Exit();
+                // ステートを更新
+                _owner.ChangeState(_transitions[i].NextState);
+                // 新ステートのEnter処理を実行
+                _owner.CurrentState.Enter();
                 // ステートマシンの状態をリセット
                 _owner.Conditions = Conditions.None;
                 return;
