@@ -9,11 +9,11 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 540bd29d542435549b0381d82c103b96, type: 3}
-  m_Name: New Move State
+  m_Script: {fileID: 11500000, guid: d3423059b827a5f46b2f867bf7bc786d, type: 3}
+  m_Name: Idle State
   m_EditorClassIdentifier: 
   _transitions:
-  - _conditions: 6
+  - _conditions: 2
+    _nextState: {fileID: 11400000, guid: 19755071eec1f664b9ca5849ca49358e, type: 2}
+  - _conditions: 4
     _nextState: {fileID: 11400000, guid: 713cd4f9dbe46c34abb0cc1282d534f8, type: 2}
-  - _conditions: 1
-    _nextState: {fileID: 11400000, guid: 15e2214409bfa1d449ec363bd32866d4, type: 2}
